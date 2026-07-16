@@ -266,10 +266,11 @@ canvas.fade-in {
   .watermark {
     font-size: 17vw;
   }
-  .lang-btn {
-    top: 10px;
-    right: 10px;
-    font-size: 0.8rem;
-    padding: 6px 12px;
+  .ghost-loader .ghost-svg {
+    width: 120px;
+    height: 120px;
+  }
+  .loading-text {
+    font-size: 1.2rem;
   }
 }
