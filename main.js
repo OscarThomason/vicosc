@@ -669,7 +669,8 @@ function createParticle() {
 // Function to update scale for mobile
 function updateGhostScale() {
   const isMobile = window.innerWidth < 768;
-  const scale = isMobile ? params.ghostScale * 0.5 : params.ghostScale;
+  // Restore original PC size (scale 1.0)
+  const scale = isMobile ? 0.5 : 1.0;
   ghostGroup.scale.set(scale, scale, scale);
 }
 
