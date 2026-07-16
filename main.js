@@ -997,3 +997,13 @@ if (langBtn && mainQuote) {
     }
   });
 }
+
+// Generate repeating watermark text
+const watermark = document.querySelector('.watermark');
+if (watermark) {
+  let repeatedText = "";
+  for (let i = 0; i < 400; i++) {
+    repeatedText += "VICOSC ";
+  }
+  watermark.textContent = repeatedText;
+}
