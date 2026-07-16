@@ -71,9 +71,12 @@ camera.position.z = 20;
 
 preloader.updateProgress(2);
 
+// Determine if device is mobile
+const isMobileDevice = window.innerWidth < 768;
+
 // Enhanced renderer with transparency
 const renderer = new THREE.WebGLRenderer({
-  antialias: true,
+  antialias: !isMobileDevice, // Disable antialiasing on mobile to save performance
   powerPreference: "high-performance",
   alpha: true,
   premultipliedAlpha: false,
@@ -81,6 +84,8 @@ const renderer = new THREE.WebGLRenderer({
   depth: true,
   preserveDrawingBuffer: false
 });
+// Optimizing performance by restricting pixel ratio on high-DPI screens
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobileDevice ? 1.0 : 1.5));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.9;
