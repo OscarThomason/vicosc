@@ -1,0 +1,275 @@
+@import url("https://fonts.googleapis.com/css2?family=Boldonse&display=swap");
+
+@font-face {
+  font-family: "PPSupplyMono";
+  src: url("https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #111;
+  letter-spacing: -0.03em;
+}
+
+/* Preloader Styles */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-content {
+  text-align: center;
+  color: #e0e0e0;
+}
+
+.ghost-loader {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ghost-svg {
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  animation: ghostFloat 3s ease-in-out infinite;
+}
+
+.ghost-body {
+  fill: white;
+  opacity: 0.9;
+}
+
+.ghost-eye, .ghost-mouth {
+  animation: faceBlink 1.2s infinite;
+}
+
+.ghost-eye {
+  fill: #ffff00;
+}
+
+.ghost-mouth {
+  fill: none;
+}
+
+@keyframes faceBlink {
+  0%   { opacity: 1; }
+  10%  { opacity: 0; }
+  12%  { opacity: 1; }
+  14%  { opacity: 0; }
+  50%  { opacity: 1; }
+  52%  { opacity: 0; }
+  54%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+@keyframes ghostFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Remove the old ghost-orb and ghost-trail styles */
+.ghost-orb,
+.ghost-trail {
+  display: none;
+}
+
+.loading-text {
+  font-family: "PPSupplyMono", monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  opacity: 1;
+  margin-bottom: 12px;
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+.loading-progress {
+  width: 96px;
+  height: 1px;
+  margin: 0 auto;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff80, #00cc66);
+  opacity: 0.1;
+  width: 0%;
+  transition: width 0.8s ease;
+}
+
+/* Main Content Styles */
+.content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  color: #e0e0e0;
+  opacity: 0;
+  transition: opacity 1.5s ease-in;
+}
+
+.content.fade-in {
+  opacity: 1;
+}
+
+.quote-container {
+  max-width: 90%;
+  overflow: hidden;
+}
+
+.quote {
+  font-family: "Boldonse", system-ui;
+  font-size: 3.5vw;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 5vh;
+  text-transform: uppercase;
+}
+
+.author {
+  font-family: "PPSupplyMono", monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 2vh;
+}
+
+/* Canvas initially hidden */
+canvas {
+  opacity: 0 !important;
+  transition: opacity 2s ease-in;
+}
+
+canvas.fade-in {
+  opacity: 1 !important;
+}
+
+/* Watermark */
+.watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Boldonse", system-ui;
+  font-size: 15vw;
+  color: #ffffff;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: watermarkBlink 2s infinite;
+}
+
+@keyframes watermarkBlink {
+  0%   { opacity: 0; }
+  12%  { opacity: 0; }
+  13%  { opacity: 0.10; }
+  14%  { opacity: 0; }
+  45%  { opacity: 0; }
+  46%  { opacity: 0.10; }
+  47%  { opacity: 0.10; }
+  48%  { opacity: 0; }
+  75%  { opacity: 0; }
+  76%  { opacity: 0.10; }
+  77%  { opacity: 0; }
+  98%  { opacity: 0; }
+  99%  { opacity: 0.10; }
+  100% { opacity: 0; }
+}
+
+/* Language Button */
+.lang-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  color: #ffff00;
+  border: 1px solid #ffff00;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: "PPSupplyMono", monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10001;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.lang-btn:hover {
+  background: #ffff00;
+  color: black;
+  opacity: 1;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .quote {
+    font-size: 7vw;
+    line-height: 1.2;
+    margin-bottom: 3vh;
+  }
+  .watermark {
+    font-size: 25vw;
+  }
+  .lang-btn {
+    top: 10px;
+    right: 10px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
