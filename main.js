@@ -709,13 +709,13 @@ let lastMouseUpdate = 0;
 let isMouseMoving = false;
 let mouseMovementTimer = null;
 
-window.addEventListener("mousemove", (e) => {
+function handlePointerMove(clientX, clientY) {
   const now = performance.now();
   if (now - lastMouseUpdate > 16) {
     prevMouse.x = mouse.x;
     prevMouse.y = mouse.y;
-    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    mouse.x = (clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(clientY / window.innerHeight) * 2 + 1;
     mouseSpeed.x = mouse.x - prevMouse.x;
     mouseSpeed.y = mouse.y - prevMouse.y;
     isMouseMoving = true;
@@ -729,7 +729,23 @@ window.addEventListener("mousemove", (e) => {
 
     lastMouseUpdate = now;
   }
+}
+
+window.addEventListener("mousemove", (e) => {
+  handlePointerMove(e.clientX, e.clientY);
 });
+
+window.addEventListener("touchstart", (e) => {
+  if (e.touches.length > 0) {
+    handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+  }
+}, { passive: true });
+
+window.addEventListener("touchmove", (e) => {
+  if (e.touches.length > 0) {
+    handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+  }
+}, { passive: true });
 
 // Animation loop
 let lastParticleTime = 0;
